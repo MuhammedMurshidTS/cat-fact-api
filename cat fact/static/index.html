@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cat Fact Image API</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Poppins", sans-serif;
+            background: radial-gradient(circle at top, #0f172a, #020617);
+            color: white;
+            text-align: center;
+        }
+
+        header {
+            padding: 50px 20px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+            background: linear-gradient(90deg, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p.sub {
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+
+        .hero-img {
+            margin-top: 40px;
+            width: 70%;
+            max-width: 600px;
+            border-radius: 12px;
+            box-shadow: 0px 0px 30px rgba(75, 85, 255, 0.3);
+        }
+
+        .btn {
+            margin-top: 30px;
+            padding: 14px 30px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            background: linear-gradient(90deg, #6366f1, #3b82f6);
+            color: white;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Documentation Box */
+        .docs {
+            margin: 60px auto;
+            max-width: 900px;
+            text-align: left;
+            background: rgba(255, 255, 255, 0.06);
+            padding: 30px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0px 0px 20px rgba(0,0,0,0.4);
+        }
+
+        .docs h2 {
+            margin-bottom: 15px;
+            color: #38bdf8;
+        }
+
+        code {
+            background: rgba(255,255,255,0.1);
+            padding: 6px 10px;
+            border-radius: 6px;
+            display: block;
+            margin: 10px 0;
+            white-space: pre-wrap;
+            font-size: 0.95rem;
+        }
+
+        footer {
+            margin-top: 60px;
+            padding: 20px;
+            opacity: 0.6;
+            font-size: 0.9rem;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<header>
+    <h1>🐾 Cat Fact Image API</h1>
+    <p class="sub">Generate AI-styled cat images with fun facts — in one simple API call.</p>
+    
+    <button class="btn" onclick="window.location.href='/cat'">
+        Try the API → /cat
+    </button>
+
+    <div>
+        <img id="preview" class="hero-img" src="/cat?demo=1" alt="Cat Preview">
+    </div>
+</header>
+
+
+<section class="docs">
+    <h2>📘 API Documentation</h2>
+    
+    <h3>🔹 Base URL</h3>
+    <code>
+{{BASE}}  
+Example (local): http://127.0.0.1:3000
+    </code>
+
+    <h3>🔹 Get Random Cat Fact Image</h3>
+    <code>
+GET /cat
+Returns a PNG image with a cat photo + fact text.
+    </code>
+
+    <h3>🔹 Example Request</h3>
+    <code>
+curl -o cat.png {{BASE}}/cat
+    </code>
+
+    <h3>🔹 Example in JavaScript</h3>
+    <code>
+document.getElementById("img").src = "{{BASE}}/cat";
+    </code>
+
+    <h3>🔹 Response Type</h3>
+    <code>
+Content-Type: image/png
+    </code>
+</section>
+
+
+<footer>
+    © 2025 Cat Fact API — Made with ❤️
+</footer>
+
+<script>
+    // Replace {{BASE}} in documentation with dynamic host
+    document.body.innerHTML = document.body.innerHTML.replace(/{{BASE}}/g, window.location.origin);
+</script>
+
+</body>
+</html>
