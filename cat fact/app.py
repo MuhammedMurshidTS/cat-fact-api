@@ -7,12 +7,14 @@ from io import BytesIO
 app = Flask(__name__, static_folder="static")
 
 FACTS_DIR = "facts"
+FONT_PATH = os.path.join("fonts", "arial.ttf")   # ← your font
+
 shuffle_queue = []
 
 
-# -------------------------------
-# 🔹 Helper: Get numbered folders
-# -------------------------------
+# -----------------------------------
+# LOAD AVAILABLE FACTS
+# -----------------------------------
 def get_fact_folders():
     return sorted([
         int(name)
@@ -21,9 +23,9 @@ def get_fact_folders():
     ])
 
 
-# -------------------------------
-# 🔹 Refill shuffle order
-# -------------------------------
+# -----------------------------------
+# SHUFFLE PLAY QUEUE
+# -----------------------------------
 def refill_shuffle_queue():
     global shuffle_queue
     folders = get_fact_folders()
@@ -32,9 +34,6 @@ def refill_shuffle_queue():
     print("🔄 Shuffle queue rebuilt:", shuffle_queue)
 
 
-# -------------------------------
-# 🔹 Get next shuffled folder
-# -------------------------------
 def get_next_fact():
     global shuffle_queue
 
@@ -44,9 +43,9 @@ def get_next_fact():
     return shuffle_queue.pop(0)
 
 
-# -------------------------------
-# 🔹 Load text + image from folder
-# -------------------------------
+# -----------------------------------
+# LOAD TEXT + IMAGE
+# -----------------------------------
 def load_fact(folder_number):
     folder = os.path.join(FACTS_DIR, str(folder_number))
 
@@ -57,17 +56,14 @@ def load_fact(folder_number):
     return text, img
 
 
-# -------------------------------
-# 🔹 Background blur (1920×1080)
-# -------------------------------
+# -----------------------------------
+# IMAGE EDIT FUNCTIONS
+# -----------------------------------
 def upscale_background(img, w=1920, h=1080):
     bg = img.copy().resize((w, h), Image.LANCZOS)
     return bg.filter(ImageFilter.GaussianBlur(40))
 
 
-# -------------------------------
-# 🔹 Resize main image and center
-# -------------------------------
 def fit_center(img, max_w=1600, max_h=900):
     iw, ih = img.size
     scale = min(max_w / iw, max_h / ih)
@@ -75,17 +71,18 @@ def fit_center(img, max_w=1600, max_h=900):
     return img.resize(new_size, Image.LANCZOS)
 
 
-# -------------------------------
-# 🔹 Draw big readable text on PNG
-# -------------------------------
+# -----------------------------------
+# DRAW TEXT ON IMAGE
+# -----------------------------------
 def draw_text(image, text):
     draw = ImageDraw.Draw(image)
 
-    # Use a better fallback font if arial.ttf is missing
+    # Load your custom font
     try:
-        font = ImageFont.truetype("arial.ttf", 52)
-    except:
-        font = ImageFont.truetype("DejaVuSans.ttf", 52) if os.path.exists("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf") else ImageFont.load_default()
+        font = ImageFont.truetype(FONT_PATH, 58)   # ← BIGGER 58px FONT
+    except Exception as e:
+        print("Font error:", e)
+        font = ImageFont.load_default()
 
     words = text.split()
     lines, current = [], ""
@@ -113,7 +110,7 @@ def draw_text(image, text):
         w = draw.textlength(line, font=font)
         x = (image.width - w) // 2
 
-        # Text outline (makes it readable)
+        # shadow
         for dx, dy in [(-2, -2), (2, -2), (-2, 2), (2, 2)]:
             draw.text((x + dx, y + dy), line, font=font, fill="black")
 
@@ -126,20 +123,21 @@ def draw_text(image, text):
     return out
 
 
-# -------------------------------
-# 🔹 Home Page
-# -------------------------------
+# -----------------------------------
+# FRONTEND
+# -----------------------------------
 @app.route("/")
 def home():
     return send_from_directory("static", "index.html")
 
 
-# -------------------------------
-# 🔹 Main API: /cat -> returns PNG
-# -------------------------------
+# -----------------------------------
+# API ENDPOINT
+# -----------------------------------
 @app.get("/cat")
 def cat():
     folder = get_next_fact()
+
     text, img = load_fact(folder)
 
     bg = upscale_background(img)
@@ -154,13 +152,16 @@ def cat():
     )
 
     result = draw_text(bg, text)
+
     return send_file(result, mimetype="image/png")
 
 
-# -------------------------------
-# 🔹 Vercel Auto-run Setup
-# -------------------------------
+# -----------------------------------
+# VERCEL: INIT SHUFFLE
+# -----------------------------------
 refill_shuffle_queue()
 
+
+# DO NOT RUN SERVER HERE (Vercel will run automatically)
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=3000, debug=True)
