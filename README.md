@@ -34,26 +34,26 @@ cat-fact-api/
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/cat-fact-api.git
+  git clone https://github.com/your-username/cat-fact-api.git
 cd cat-fact-api
 ```
 
 2. Install dependencies:
 
 ```bash
-pip install -r requirements.txt
+  pip install -r requirements.txt
 ```
 
 3. Run the API locally:
 
 ```bash
-python app.py
+  python app.py
 ```
 
 Your API will be available at:
 
 ```
-http://127.0.0.1:5000/
+  http://127.0.0.1:5000/
 ```
 
 ---
@@ -63,27 +63,27 @@ http://127.0.0.1:5000/
 ### **Get random cat fact**
 
 ```
-GET /api/fact
+  GET /api/fact
 ```
 
 **Example response:**
 
 ```json
 {
-  "fact": "Cats sleep for 70% of their lives."
+    "fact": "Cats sleep for 70% of their lives."
 }
 ```
 
 ### **Get random fact from a category**
 
 ```
-GET /api/fact/<category>
+  GET /api/fact/<category>
 ```
 
 Example:
 
 ```
-/api/fact/sleep
+  /api/fact/sleep
 ```
 
 ---
@@ -145,7 +145,7 @@ If you have new cat facts or new fact categories, feel free to contribute.
 
 ---
 
-## ⭐️ Support
+## ⭐️ Support:
 
 If you like this project, consider giving it a **star ⭐ on GitHub** — it helps a lot!
 
@@ -153,7 +153,7 @@ If you like this project, consider giving it a **star ⭐ on GitHub** — it hel
 
 ## 🐈 Made With Love
 
-Made by **Muhammed Murshid** 🖤
+Made by **Muhammed Murshid ts** 🖤
 *Because cats deserve their own API.*
 ✅ Add installation GIF
 Just tell me!
