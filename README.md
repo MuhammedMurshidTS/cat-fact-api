@@ -141,19 +141,19 @@ vercel --prod
 ## 🤝 Contributing
 
 Pull requests are welcome!
-If you have new cat facts or new fact categories, feel free to contribute.
+ If you have new cat facts or new fact categories, feel free to contribute.
 
 ---
 
 ## ⭐️ Support:
 
-If you like this project, consider giving it a **star ⭐ on GitHub** — it helps a lot!
+  If you like this project, consider giving it a  **star ⭐ on GitHub** — it helps a lot!
 
 ---
 
 ## 🐈 Made With Love
 
-Made by **Muhammed Murshid ts** 🖤
-*Because cats deserve their own API.*
-✅ Add installation GIF
-Just tell me!
+ Made by **Muhammed Murshid ts** 🖤
+ *Because cats deserve their own API.*
+ ✅ Add installation GIF
+ Just tell me!
