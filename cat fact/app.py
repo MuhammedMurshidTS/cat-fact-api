@@ -124,7 +124,7 @@ def draw_text(image, text):
 
 
 # -----------------------------------
-# FRONTEND
+ # FRONTEND
 # -----------------------------------
 @app.route("/")
 def home():
