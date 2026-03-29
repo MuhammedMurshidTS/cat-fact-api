@@ -1,6 +1,6 @@
 # 🐾 Cat Facts API
 
-A simple and fun API that returns random cat facts along with optional cat images.
+ A simple and fun API that returns random cat facts along with optional cat images.
 Built using **Python (Flask)** and deployed on **Vercel**.
 
 ---
